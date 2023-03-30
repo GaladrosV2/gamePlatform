@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { Input, Button, Col, Row, Space } from "antd";
 import { UserOutlined, MailOutlined, UnlockOutlined } from "@ant-design/icons";
 
 import styles from "../styles/pages/register.module.scss";
 
+const backgrounds = ["bg1.png", "bg2.png", "bg3.png"];
+
 export default function Register() {
+	const [backgroundImage, setBackgroundImage] = useState("");
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		setBackgroundImage(backgrounds[Math.floor(Math.random() * backgrounds.length)]);
+	}, []);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -20,20 +26,23 @@ export default function Register() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const { email, password, name } = formData;
+		const { name, email, password } = formData;
 
 		try {
-			const result = await signIn("credentials", {
-				redirect: false,
-				email,
-				password,
-				name,
+			const response = await fetch("/api/auth/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ name, email, password }),
 			});
 
-			if (!result.error) {
-				window.location.href = "/";
+			const result = await response.json();
+
+			if (response.ok) {
+				window.location.href = "/login";
 			} else {
-				alert(result.error);
+				throw new Error(result.message);
 			}
 		} catch (error) {
 			console.error(error);
@@ -42,7 +51,10 @@ export default function Register() {
 	};
 
 	return (
-		<Row className={styles.register}>
+		<Row
+			className={styles.register}
+			style={{ backgroundImage: `url("/${backgroundImage}")` }}
+		>
 			<Col span={4}>
 				<form onSubmit={handleSubmit}>
 					<Space
@@ -68,10 +80,9 @@ export default function Register() {
 							value={formData.email}
 							onChange={handleInputChange}
 						/>
-						<Input
+						<Input.Password
 							size='large'
 							placeholder='Hasło'
-							type='password'
 							name='password'
 							prefix={<UnlockOutlined />}
 							value={formData.password}
@@ -82,10 +93,10 @@ export default function Register() {
 							block
 							htmlType='submit'
 						>
-							Zarejestruj
+							Register
 						</Button>
 						<Button type='link'>
-							<Link href='/login'>Już masz konto? Zaloguj się</Link>
+							<Link href='/login'>Masz już konto? Zaloguj się.</Link>
 						</Button>
 					</Space>
 				</form>

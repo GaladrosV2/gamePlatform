@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { signIn, getSession } from "next-auth/react";
 import { UnlockOutlined, MailOutlined } from "@ant-design/icons";
@@ -7,10 +7,17 @@ import Link from "next/link";
 
 import styles from "../styles/pages/login.module.scss";
 
+const backgrounds = ["bg1.png", "bg2.png", "bg3.png"];
+
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [backgroundImage, setBackgroundImage] = useState("");
 	const router = typeof window !== "undefined" ? useRouter() : null;
+
+	useEffect(() => {
+		setBackgroundImage(backgrounds[Math.floor(Math.random() * backgrounds.length)]);
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -31,7 +38,10 @@ export default function LoginPage() {
 	};
 
 	return (
-		<Row className={styles.login}>
+		<Row
+			className={styles.login}
+			style={{ backgroundImage: `url("/${backgroundImage}")` }}
+		>
 			<Col span={4}>
 				<form onSubmit={handleSubmit}>
 					<Space
