@@ -28,6 +28,7 @@ export default function LoginPage() {
 		});
 
 		if (result.error) {
+			alert(result.error);
 			console.log(result.error);
 		} else {
 			const session = await getSession();

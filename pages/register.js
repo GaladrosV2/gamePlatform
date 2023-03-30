@@ -93,7 +93,7 @@ export default function Register() {
 							block
 							htmlType='submit'
 						>
-							Register
+							Zarejestruj
 						</Button>
 						<Button type='link'>
 							<Link href='/login'>Masz już konto? Zaloguj się.</Link>
