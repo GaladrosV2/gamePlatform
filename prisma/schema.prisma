@@ -29,6 +29,15 @@ model Session {
 model Taverns {
   id            Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now())
-  TavernId      String?
-  TavernDescr   String?
+  tavernId      String?
+  tavernDescr   String?
+}
+
+model TavernMessages {
+  id            Int       @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  tavernId      String?
+  createdAt     DateTime  @default(now())
+  message       String?
 }
