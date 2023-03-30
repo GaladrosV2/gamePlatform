@@ -25,3 +25,10 @@ model Session {
   user         User     @relation(fields: [userId], references: [id])
   userId       Int
 }
+
+model Taverns {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  TavernId      String?
+  TavernDescr   String?
+}
