@@ -32,3 +32,4 @@ model Taverns {
   TavernId      String?
   TavernDescr   String?
 }
+
