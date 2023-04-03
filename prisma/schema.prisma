@@ -29,15 +29,17 @@ model Session {
 model Taverns {
   id            Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now())
-  tavernId      String?
+  tavernId      Int       
   tavernDescr   String?
 }
 
 model TavernMessages {
   id            Int       @id @default(autoincrement())
-  user          User     @relation(fields: [userId], references: [id])
-  userId        Int
+  tavern        Taverns   @relation(fields: [tavernId], references: [id])
   tavernId      String?
+  user          User      @relation(fields: [userId], references: [id])
+  userId        Int
+  name          String?   @map("user->name")
   createdAt     DateTime  @default(now())
   message       String?
 }
