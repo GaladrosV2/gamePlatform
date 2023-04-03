@@ -1,5 +1,10 @@
+@import 'variables.scss';
+
+
 html,
 body,
 #__next {
+	background: $black;
+	color: $white;
 	height: 100%;
 }

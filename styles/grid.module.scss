@@ -1,0 +1,62 @@
+@import './variables.scss';
+
+@mixin container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@mixin col($width, $breakpoints...) {
+    $flex-basis: ($width / 12) * 100%;
+    $max-width: ($width / 12) * 100%;
+
+    flex-basis: $flex-basis;
+    max-width: $max-width;
+
+    @each $breakpoint in $breakpoints {
+        $query: breakpoint($breakpoint);
+
+        @media #{$query} {
+            flex-basis: ($width / 12) * 100%;
+            max-width: ($width / 12) * 100%;
+        }
+    }
+}
+
+@function breakpoint($key) {
+    @if map-has-key($breakpoints, $key) {
+        @return '(min-width: #{map-get($breakpoints, $key)})';
+    } @else {
+        @error "No breakpoint defined for key '#{$key}'";
+    }
+}
+
+.container {
+    @include container;
+}
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        @include col($i);
+    }
+}
+
+@media (min-width: 768px) {
+    @for $i from 1 through 12 {
+        .col-md-#{$i} {
+            @include col($i, md);
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    @for $i from 1 through 12 {
+        .col-lg-#{$i} {
+            @include col($i, md, lg);
+        }
+    }
+}

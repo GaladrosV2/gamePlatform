@@ -1,0 +1,44 @@
+@import '../../styles/variables';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input {
+    border: none;
+    background: transparent;
+    color: $white;
+    text-align: center;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.label {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    span {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.roll {
+    font-weight: 900;
+    font-size: 20px;
+}

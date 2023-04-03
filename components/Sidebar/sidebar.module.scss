@@ -1,0 +1,7 @@
+@import '../../styles/variables';
+
+.wrapper {
+    > *:not(:last-child) {
+        border-bottom: 1px solid $gray;
+    }
+}

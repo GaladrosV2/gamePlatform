@@ -1,7 +1,35 @@
-.header {
-	&___logo {
-	}
+@import '../../styles/variables';
 
-	&__nav {
-	}
+.header {
+  display: flex;
+  color: $white;
+  padding: 40px 0;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    text-decoration: none;
+    color: $white;
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    &-item {
+      text-decoration: none;
+      color: inherit;
+      background: none;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+  }
 }
