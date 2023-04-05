@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, Space } from "antd";
+import { Button, Space, Shape } from "antd";
 
-const App = ({ children }) => (
+const AntdButtonWrapper = ({ children, ...props }) => (
   <Space wrap>
-    <Button type="primary">{children}</Button>
+    <Button type="primary" {...props}>
+      {children}
+    </Button>
   </Space>
 );
 
-export default App;
+export default AntdButtonWrapper;

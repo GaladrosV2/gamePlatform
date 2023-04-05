@@ -1,9 +1,10 @@
 // Importing React and necessary hooks from the 'auth-helpers-react' and other files
 import React, { useState, useEffect } from "react";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import useUser from "../../hooks/useUser";
 import withAuth from "../../pages/api/withAuth";
 import DOMPurify from "isomorphic-dompurify";
-
+// Importing the Prisma client instance
+import prisma from "../../lib/prisma";
 // Importing the custom TiptapEditor and Button components
 import TiptapEditor from "../Editor";
 import Button from "../Button";
@@ -12,12 +13,13 @@ import tavern from "./tavern.module.scss";
 // Importing the two tavern games that this component renders
 import CupsGame from "../TavernGames/cupsGame";
 import DicePoker from "../TavernGames/diceGame";
+
 // Defining the main Tavern component
 const Tavern = (props) => {
   // Defining several state variables that this component uses to manage its UI state
   const [editorValue, setEditorValue] = useState("");
   const this_user = useUser();
-  const supabaseClient = useSupabaseClient();
+  // const supabaseClient = useSupabaseClient();
   const [status, setStatus] = useState("");
   const [data, setData] = useState([]);
 
@@ -30,28 +32,25 @@ const Tavern = (props) => {
   // Defining an effect hook that loads data from a Supabase database when the 'status' state changes
   useEffect(() => {
     async function loadData() {
-      const { data, error } = await supabaseClient
-        .from("TavernMessage")
-        .select("*");
+      const { data, error } = await prisma.TavernMessages.findMany();
       if (error) {
         console.log("error");
       } else {
         setData(data);
-        // console.log(data);
       }
     }
     loadData();
   }, [status]);
 
-  // Defining an async function that saves the value of the TiptapEditor component to the Supabase database
+  // Defining an async function that saves the value of the TiptapEditor component to the Prisma database
   const saveEditorContent = async () => {
-    const { error } = await supabaseClient.from("TavernMessage").insert([
-      {
+    const { error } = await prisma.tavernMessages.create({
+      data: {
         tavernId: 1,
         userID: this_user.id,
         message: editorValue,
       },
-    ]);
+    });
 
     if (error) {
       setStatus(error);

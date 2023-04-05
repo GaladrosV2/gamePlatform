@@ -1,0 +1,25 @@
+@import './../../styles/variables.scss';
+
+
+.editor { 
+  background-color: $white; 
+  border: 3px solid $black;  
+  // border-radius: 0.75rem;  
+  color: $black;  
+  display: flex; 
+  flex-direction: column; 
+  max-width: 95%;
+}
+
+.content {
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1.25rem 1rem;
+
+}
+
+.editor p {
+  background-color: $gray; 
+  border: 3px solid $black;  
+}

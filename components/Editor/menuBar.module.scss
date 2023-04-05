@@ -1,0 +1,18 @@
+@import './../../styles/variables.scss';
+
+.divider {
+  background-color: rgba($black, 0.1);
+  height: 1.25rem;
+  margin-left: 0.5rem;
+  margin-right: 0.75rem;
+  width: 2px;
+}
+
+.editorContainer {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #0d0d0d;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  padding: 0.25rem;
+}

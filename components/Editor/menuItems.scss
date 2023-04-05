@@ -1,0 +1,26 @@
+@import './../../styles/variables.scss';
+
+.menuItem {
+    background-color: transparent;
+    border: none;
+    border-radius: 0.4rem;
+    color: $black;
+    height: 0.25rem;
+    padding: 1.25rem;
+    width: 0.25rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+   svg {
+      fill: currentColor;
+      height: 100%;
+      width: 100%;
+    }
+  
+    &:hover,
+    &.is-active {
+      background-color: $black;
+      color: $white;
+    }
+}

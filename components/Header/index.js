@@ -8,27 +8,29 @@ import header from "./header.module.scss";
 
 const Header = () => {
   return (
-    <Row>
-      <Col span={16}>
-        <Link className={header.header__logo} href="/">
-          TGF
-        </Link>
-      </Col>
-      <Col span={8}>
-        <div className={header.header__nav}>
-          <Link className={header["header__nav-item"]} href="/postac">
-            Postać
+    <header className={header.header}>
+      <Row>
+        <Col span={17}>
+          <Link className={header.header__logo} href="/">
+            TGF
           </Link>
-          <Link className={header["header__nav-item"]} href="/tavern">
-            Karczmy
-          </Link>
-          <Link className={header["header__nav-item"]} href="/sesje">
-            Sesje
-          </Link>
-          <LogoutButton className={header["header__nav-item"]} />
-        </div>
-      </Col>
-    </Row>
+        </Col>
+        <Col span={7}>
+          <div className={header.header__nav}>
+            <Link className={header["header__nav-item"]} href="/postac">
+              Postać
+            </Link>
+            <Link className={header["header__nav-item"]} href="/tavern">
+              Karczmy
+            </Link>
+            <Link className={header["header__nav-item"]} href="/sesje">
+              Sesje
+            </Link>
+            <LogoutButton className={header["header__nav-item"]} />
+          </div>
+        </Col>
+      </Row>
+    </header>
   );
 };
 

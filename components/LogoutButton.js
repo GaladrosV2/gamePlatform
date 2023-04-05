@@ -1,12 +1,13 @@
 import React from "react";
 import { signOut } from "next-auth/react";
+import AntdButtonWrapper from "./Button";
 
 const LogoutButton = () => {
-	const handleLogout = async () => {
-		await signOut({ callbackUrl: "/login" });
-	};
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/login" });
+  };
 
-	return <button onClick={handleLogout}>Logout</button>;
+  return <AntdButtonWrapper onClick={handleLogout}>Logout</AntdButtonWrapper>;
 };
 
 export default LogoutButton;

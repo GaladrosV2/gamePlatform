@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Button from "../Button";
-
+import AntdButtonWrapper from "../Button";
 import dices from "./dices.module.scss";
 
 const DiceRoller = () => {
@@ -26,16 +25,20 @@ const DiceRoller = () => {
   return (
     <div className={dices.wrapper}>
       <div className={dices.buttons}>
-        <Button onClick={() => rollDice(100)}>K100</Button>
-        <Button onClick={() => rollDice(20)}>K20</Button>
-        <Button onClick={() => rollDice(10)}>K10</Button>
-        <Button onClick={() => rollDice(2)}>K2</Button>
+        <AntdButtonWrapper onClick={() => rollDice(100)}>
+          K100
+        </AntdButtonWrapper>
+        <AntdButtonWrapper onClick={() => rollDice(20)}>K20</AntdButtonWrapper>
+        <AntdButtonWrapper onClick={() => rollDice(10)}>K10</AntdButtonWrapper>
+        <AntdButtonWrapper onClick={() => rollDice(2)}>K2</AntdButtonWrapper>
       </div>
       <label className={dices.label}>
         <span>Liczba kości:</span>
-        <Button onClick={() => handleNumDiceChange(Math.max(numDice - 1, 1))}>
+        <AntdButtonWrapper
+          onClick={() => handleNumDiceChange(Math.max(numDice - 1, 1))}
+        >
           -
-        </Button>
+        </AntdButtonWrapper>
         <input
           className={dices.input}
           type="number"
@@ -45,9 +48,11 @@ const DiceRoller = () => {
           value={numDice}
           onChange={handleNumDiceChange}
         />
-        <Button onClick={() => handleNumDiceChange(Math.min(numDice + 1, 10))}>
+        <AntdButtonWrapper
+          onClick={() => handleNumDiceChange(Math.min(numDice + 1, 10))}
+        >
           +
-        </Button>
+        </AntdButtonWrapper>
       </label>
       {lastRoll && (
         <div>
