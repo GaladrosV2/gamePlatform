@@ -7,7 +7,7 @@ import tavern from "../styles/pages/tavern.module.scss";
 
 const Karczmy = () => {
   const [tableData, setTableData] = useState([]);
-  console.log(prisma);
+  // console.log(prisma);
 
   useEffect(() => {
     fetchTavernData();
