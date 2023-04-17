@@ -2,40 +2,40 @@ import React, { useState, useEffect } from "react";
 // import withAuth from "./api/withAuth";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import prisma from "./../lib/prisma";
-import tavern from "../styles/pages/tavern.module.scss";
 import databaseFetch from "../lib/databaseFetch";
+import tavern from "../styles/pages/tavern.module.scss";
 
-const Karczmy = () => {
-  const [tableData, setTableData] = useState([]);
-  // console.log(prisma);
+const Taverns = () => {
+  const [tableData, setTableData] = useState();
 
   useEffect(() => {
     fetchTavernData();
   }, []);
 
+  // useEffect(() => {
+  //   console.log(tableData);
+  // }, [tableData]);
+
   async function fetchTavernData() {
     const data = await databaseFetch({
       model: "Taverns",
-      action: "findUnique",
+      action: "findMany",
     });
     setTableData(data);
-    console.log(tableData);
   }
 
   return (
     <Layout>
       <div className={tavern.linkContainer}>
-        <ul>
-          {tableData.map((tavern) => (
-            <li key={tavern.TavernId}>
-              <Link href={`/tavern/${tavern.TavernId}`}>{tavern.TavernId}</Link>
-            </li>
+        {tableData &&
+          tableData.map((table) => (
+            <Link key={table.id} href={`/tavern/${tavern.id}`}>
+              {table.name}
+            </Link>
           ))}
-        </ul>
       </div>
     </Layout>
   );
 };
 
-export default Karczmy;
+export default Taverns;
