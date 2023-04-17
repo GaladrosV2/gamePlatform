@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import prisma from "./../lib/prisma";
 import tavern from "../styles/pages/tavern.module.scss";
+import databaseFetch from "../lib/databaseFetch";
 
 const Karczmy = () => {
   const [tableData, setTableData] = useState([]);
@@ -14,14 +15,14 @@ const Karczmy = () => {
   }, []);
 
   async function fetchTavernData() {
-    try {
-      const data = await prisma.Taverns.findMany;
-
-      setTableData(data);
-    } catch (error) {
-      console.error(error);
-    }
+    const data = await databaseFetch({
+      model: "Taverns",
+      action: "findUnique",
+    });
+    setTableData(data);
+    console.log(tableData);
   }
+
   return (
     <Layout>
       <div className={tavern.linkContainer}>
