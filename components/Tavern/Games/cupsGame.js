@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import withAuth from "../../pages/api/withAuth";
-import Button from "../Button";
+import AntdButtonWrapper from "../../Button";
 import games from "./games.module.scss";
 
 const CupsGame = () => {
@@ -54,7 +53,9 @@ const CupsGame = () => {
             ) : (
               <p>Przegrałeś złocisza</p>
             )}
-            <Button onClick={handlePopupClose}>Jeszcze raz!</Button>
+            <AntdButtonWrapper onClick={handlePopupClose}>
+              Jeszcze raz!
+            </AntdButtonWrapper>
           </div>
         </div>
       )}
@@ -62,4 +63,4 @@ const CupsGame = () => {
   );
 };
 
-export default withAuth(CupsGame);
+export default CupsGame;

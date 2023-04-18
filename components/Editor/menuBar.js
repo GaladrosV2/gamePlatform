@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import withAuth from "../../pages/api/withAuth";
 
 import MenuItem from "./MenuItem";
 import menuBar from "./menuBar.module.scss";
@@ -134,4 +133,4 @@ const Editor = ({ editor }) => {
     </div>
   );
 };
-export default withAuth(Editor);
+export default Editor;

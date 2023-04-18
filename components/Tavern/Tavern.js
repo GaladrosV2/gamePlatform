@@ -1,47 +1,40 @@
-// Importing React and necessary hooks from the 'auth-helpers-react' and other files
 import React, { useState, useEffect } from "react";
-import useUser from "../../hooks/useUser";
-import withAuth from "../../pages/api/withAuth";
+import useUser from "../Hooks/useUser";
 import DOMPurify from "isomorphic-dompurify";
-// Importing the Prisma client instance
+
 import prisma from "../../lib/prisma";
-// Importing the custom TiptapEditor and Button components
+
 import TiptapEditor from "../Editor";
 import Button from "../Button";
-// Importing the styles for this component
-import tavern from "./tavern.module.scss";
-// Importing the two tavern games that this component renders
-import CupsGame from "../TavernGames/cupsGame";
-import DicePoker from "../TavernGames/diceGame";
 
-// Defining the main Tavern component
-const Tavern = (props) => {
+import tavern from "./tavern.module.scss";
+
+import CupsGame from "./Games/cupsGame";
+import DicePoker from "./Games/diceGame";
+
+const Tavern = ({}) => {
   // Defining several state variables that this component uses to manage its UI state
   const [editorValue, setEditorValue] = useState("");
   const this_user = useUser();
   // const supabaseClient = useSupabaseClient();
   const [status, setStatus] = useState("");
   const [data, setData] = useState([]);
-
   const [showDescription, setShowDescription] = useState(false);
   const [show3Cups, setShow3Cups] = useState(false);
   const [showDices, setShowDices] = useState(false);
   //Defining connection with [tavern] database
-  const tavernData = props.props;
-
-  // Defining an effect hook that loads data from a Supabase database when the 'status' state changes
+  const [tavernData, setTavernData] = useState(null);
   useEffect(() => {
-    async function loadData() {
-      const { data, error } = await prisma.TavernMessages.findMany();
-      if (error) {
-        console.log("error");
-      } else {
-        setData(data);
-      }
-    }
-    loadData();
+    fetchTavernData();
   }, [status]);
-
+  // Defining an effect hook that loads data from a Prisma database when the 'status' state changes
+  async function fetchTavernData() {
+    const data = await databaseFetch({
+      model: "Taverns",
+      action: "findMany",
+    });
+    setData(data);
+  }
   // Defining an async function that saves the value of the TiptapEditor component to the Prisma database
   const saveEditorContent = async () => {
     const { error } = await prisma.tavernMessages.create({
@@ -130,4 +123,4 @@ const Tavern = (props) => {
   );
 };
 
-export default withAuth(Tavern);
+export default Tavern;

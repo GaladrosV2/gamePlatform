@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import AntdButtonWrapper from "../../Button";
 import games from "./games.module.scss";
 
 const DiceGame = () => {
@@ -93,7 +93,7 @@ const DiceGame = () => {
   return (
     <div className={games.diceGame}>
       <h1>Gra w kości</h1>
-      <Button onClick={handlePlay}>Rzuć kośćmi</Button>
+      <AntdButtonWrapper onClick={handlePlay}>Rzuć kośćmi</AntdButtonWrapper>
       {userResult && tavResult ? (
         <div className={games.diceContainer}>
           <h2>Wyrzuciłeś:</h2>

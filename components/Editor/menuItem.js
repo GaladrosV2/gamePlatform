@@ -1,8 +1,7 @@
 import React from "react";
-import withAuth from "../../pages/api/withAuth";
 import "remixicon/fonts/remixicon.css";
 
-import menuItem from "./menuItem.module.scss";
+import menuItem from "./menuItems.module.scss";
 import Button from "../Button/index";
 
 const MenuItem = (props) => {
@@ -20,4 +19,4 @@ const MenuItem = (props) => {
     </Button>
   );
 };
-export default withAuth(MenuItem);
+export default MenuItem;
