@@ -24,17 +24,17 @@ const Tavern = ({}) => {
   const [showDices, setShowDices] = useState(false);
   //Defining connection with [tavern] database
   const [tavernData, setTavernData] = useState(null);
-  useEffect(() => {
-    fetchTavernData();
-  }, [status]);
-  // Defining an effect hook that loads data from a Prisma database when the 'status' state changes
-  async function fetchTavernData() {
-    const data = await databaseFetch({
-      model: "Taverns",
-      action: "findMany",
-    });
-    setData(data);
-  }
+  // useEffect(() => {
+  //   fetchTavernData();
+  // }, [status]);
+  // // Defining an effect hook that loads data from a Prisma database when the 'status' state changes
+  // async function fetchTavernData() {
+  //   const data = await databaseFetch({
+  //     model: "Taverns",
+  //     action: "findMany",
+  //   });
+  //   setData(data);
+  // }
   // Defining an async function that saves the value of the TiptapEditor component to the Prisma database
   const saveEditorContent = async () => {
     const { error } = await prisma.tavernMessages.create({
