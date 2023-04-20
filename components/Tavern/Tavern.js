@@ -30,6 +30,9 @@ const Tavern = ({ tavernData }) => {
   async function fetchTavernData() {
     const data = await databaseFetch({
       model: "TavernMessages",
+      where: {
+        tavernId: tavernData.id,
+      },
       action: "findMany",
     });
     setFetchData(data);
@@ -40,6 +43,7 @@ const Tavern = ({ tavernData }) => {
       const newMessage = await databaseFetch({
         model: "TavernMessages",
         action: "create",
+
         data: {
           tavernId: tavernData.id,
           userId: this_user.id,
@@ -109,7 +113,7 @@ const Tavern = ({ tavernData }) => {
             key={message.id}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
-                this_user.name ?? "Nieznajomy" + ":" + message.message
+                (this_user?.name ?? null) + ":" + message.message
               ),
             }}
           />

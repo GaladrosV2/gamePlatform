@@ -1,20 +1,18 @@
 import React, { Fragment } from "react";
 
-import { ItalicOutlined } from "@ant-design/icons";
-
 import MenuItem from "./MenuItem";
 import menuBar from "./menuBar.module.scss";
 
 const Editor = ({ editor }) => {
   const items = [
     {
-      icon: "icon-bold",
+      icon: "bold",
       title: "Bold",
       action: () => editor.chain().focus().toggleBold().run(),
       isActive: () => editor.isActive("bold"),
     },
     {
-      icon: <ItalicOutlined />,
+      icon: "italic",
       title: "Italic",
       action: () => editor.chain().focus().toggleItalic().run(),
       isActive: () => editor.isActive("italic"),
