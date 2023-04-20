@@ -13,7 +13,6 @@ const TavernList = () => {
 
   useEffect(() => {
     fetchTavernData();
-    console.log(inn);
   }, [tavernRouter]);
 
   async function fetchTavernData() {
@@ -22,12 +21,14 @@ const TavernList = () => {
       action: "findMany",
     });
     setInn(data);
-    console.log(inn);
   }
+
+  console.log(inn);
+  console.log(tavernRouter);
 
   return (
     <Layout>
-      {inn ? <Tavern tavernRouter={inn.id} /> : <div>Loading...</div>}
+      {inn ? <Tavern tavernID={tavernRouter} /> : <div>Loading...</div>}
     </Layout>
   );
 };

@@ -20,7 +20,7 @@ const Header = () => {
             <Link className={header["header__nav-item"]} href="/postac">
               Postać
             </Link>
-            <Link className={header["header__nav-item"]} href="/tavern">
+            <Link className={header["header__nav-item"]} href="/taverns">
               Karczmy
             </Link>
             <Link className={header["header__nav-item"]} href="/sesje">
