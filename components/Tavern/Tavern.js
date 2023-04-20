@@ -11,7 +11,7 @@ import tavern from "./tavern.module.scss";
 import CupsGame from "./Games/cupsGame";
 import DicePoker from "./Games/diceGame";
 
-const Tavern = ({}) => {
+const Tavern = ({ props }) => {
   // Defining several state variables that this component uses to manage its UI state
   const [editorValue, setEditorValue] = useState("");
   const this_user = useUser();
@@ -22,11 +22,11 @@ const Tavern = ({}) => {
   const [showDices, setShowDices] = useState(false);
   const [inn, setInn] = useState(null);
   //Defining connection with [tavern] database
-  const willn = props.tavernId;
+  const tavernData = props;
   useEffect(() => {
     fetchTavernData();
     console.log(fetchData);
-    console.log(willn);
+    console.log(tavernData);
   }, []);
 
   async function fetchTavernData() {

@@ -28,7 +28,7 @@ const TavernList = () => {
 
   return (
     <Layout>
-      {inn ? <Tavern tavernID={tavernRouter} /> : <div>Loading...</div>}
+      {inn ? <Tavern tavernRouter={inn} /> : <div>Loading...</div>}
     </Layout>
   );
 };
