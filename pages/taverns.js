@@ -9,7 +9,6 @@ const Taverns = () => {
   const [tableData, setTableData] = useState();
   useEffect(() => {
     fetchTavernData();
-    console.log(tableData);
   }, []);
 
   async function fetchTavernData() {

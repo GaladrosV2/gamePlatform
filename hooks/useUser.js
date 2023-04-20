@@ -10,6 +10,7 @@ const useUser = () => {
     const getUser = async () => {
       if (session?.user?.email) {
         const userData = await databaseFetch({
+          model: "User",
           action: "findUnique",
           where: {
             email: session.user.email,

@@ -9,27 +9,25 @@ import Tavern from "../../components/Tavern/Tavern";
 const TavernList = () => {
   const [inn, setInn] = useState();
   const router = useRouter();
-  const { tavernRouter } = router.query;
+  const { tavern } = router.query;
 
   useEffect(() => {
     fetchTavernData();
-  }, [tavernRouter]);
+  }, [tavern]);
 
   async function fetchTavernData() {
     const data = await databaseFetch({
       model: "Taverns",
-      action: "findMany",
+      action: "findUnique",
+      where: {
+        id: Number(tavern),
+      },
     });
     setInn(data);
   }
 
-  console.log(inn);
-  console.log(tavernRouter);
-
   return (
-    <Layout>
-      {inn ? <Tavern tavernRouter={inn} /> : <div>Loading...</div>}
-    </Layout>
+    <Layout>{inn ? <Tavern tavernData={inn} /> : <div>Loading...</div>}</Layout>
   );
 };
 export default withAuth(TavernList);

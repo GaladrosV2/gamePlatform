@@ -21,18 +21,25 @@ const tiptapEditor = (props) => {
       TaskList,
       TaskItem,
       CharacterCount.configure({
-        limit: 10000,
+        limit: 200000,
       }),
     ],
     onUpdate({ editor }) {
       props.onChange(editor.getHTML());
     },
   });
-
+  if (!editor) {
+    return null;
+  }
   return (
     <div className={index.editor}>
       <MenuBar editor={editor} />
       <EditorContent className={index.content} editor={editor} />
+      <div className="characterCount">
+        {editor.storage.characterCount.characters()} Znaków
+        <br />
+        {editor.storage.characterCount.words()} Słów
+      </div>
     </div>
   );
 };

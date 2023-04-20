@@ -1,12 +1,11 @@
 import React from "react";
-import "remixicon/fonts/remixicon.css";
-
+// import "remixicon/fonts/remixicon.css";
+import "@ant-design/icons";
 import menuItem from "./menuItems.module.scss";
 import Button from "../Button/index";
 
-const MenuItem = (props) => {
-  const { icon, title, action } = props;
-  const isActive = null;
+const MenuItem = ({ icon, title, action, isActive }) => {
+  console.log(icon);
   return (
     <Button
       className={`${menuItem.menuItem}${
@@ -15,7 +14,7 @@ const MenuItem = (props) => {
       onClick={action}
       title={title}
     >
-      <i className={"ri-" + icon}></i>
+      {icon}
     </Button>
   );
 };

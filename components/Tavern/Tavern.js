@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import useUser from "../../hooks/useUser";
 import DOMPurify from "isomorphic-dompurify";
 
-import TiptapEditor from "../Editor";
-import AntdButtonWrapper from "../Button";
 import databaseFetch from "../../lib/databaseFetch";
 
-import tavern from "./tavern.module.scss";
-
+import TiptapEditor from "../Editor";
+import AntdButtonWrapper from "../Button";
 import CupsGame from "./Games/cupsGame";
 import DicePoker from "./Games/diceGame";
 
-const Tavern = ({ props }) => {
+import tavern from "./tavern.module.scss";
+
+const Tavern = ({ tavernData }) => {
   // Defining several state variables that this component uses to manage its UI state
   const [editorValue, setEditorValue] = useState("");
   const this_user = useUser();
@@ -20,14 +20,12 @@ const Tavern = ({ props }) => {
   const [showDescription, setShowDescription] = useState(false);
   const [show3Cups, setShow3Cups] = useState(false);
   const [showDices, setShowDices] = useState(false);
-  const [inn, setInn] = useState(null);
+  const [showError, setShowError] = useState(false);
+
   //Defining connection with [tavern] database
-  const tavernData = props;
   useEffect(() => {
     fetchTavernData();
-    console.log(fetchData);
-    console.log(tavernData);
-  }, []);
+  }, [status]);
 
   async function fetchTavernData() {
     const data = await databaseFetch({
@@ -37,26 +35,21 @@ const Tavern = ({ props }) => {
     setFetchData(data);
   }
   // Defining an async function that saves the value of the TiptapEditor component to the Prisma database
-  // const saveEditorContent = async () => {
-  //   const { error } = await databaseFetch({
-  //     model: "TavernMessages",
-  //     action: "create",
-  //     data:{
-  //       id: 1,
-  //       tavern: ,
-  //       tavernId: ,
-  //       user: this_user,
-  //       userId: this_user.id,
-  //       message:,
-  //     },
-  //     })};
-
-  //   if (error) {
-  //     setStatus(error);
-  //   } else {
-  //     setStatus("Wiadomość wysłana");
-  //   }
-  // };
+  const saveEditorContent = async () => {
+    if (editorValue.length >= 1) {
+      const newMessage = await databaseFetch({
+        model: "TavernMessages",
+        action: "create",
+        data: {
+          tavernId: tavernData.id,
+          userId: this_user.id,
+          message: editorValue,
+        },
+      });
+    } else {
+      setShowError(true);
+    }
+  };
   // Defining several event handlers that toggle the 'showDescription', 'show3Cups', and 'showDices' state variables
   const handleShowDescription = () => {
     setShowDescription(!showDescription);
@@ -67,6 +60,7 @@ const Tavern = ({ props }) => {
   const handleDices = () => {
     setShowDices(!showDices);
   };
+
   // Rendering the main UI of this component
   return (
     <div className={tavern.tavernWrapper}>
@@ -85,7 +79,7 @@ const Tavern = ({ props }) => {
 
         {showDescription && (
           <div className={tavern.description}>
-            <p>{fetchData.map((table) => table.description)}</p>
+            <p>{tavernData.description}</p>
           </div>
         )}
 
@@ -104,18 +98,28 @@ const Tavern = ({ props }) => {
           </div>
         )}
 
+        {showError && (
+          <div className={tavern.tooShort}>
+            Twoja wiadomość jest za krótka, postaraj się bardziej.
+          </div>
+        )}
+
         {fetchData.map((message) => (
           <div
             key={message.id}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
-                message.userId + ":" + message.message
+                this_user.name ?? "Nieznajomy" + ":" + message.message
               ),
             }}
           />
         ))}
       </div>
-      <TiptapEditor onChange={(value) => setEditorValue(value)} />
+      <TiptapEditor
+        onChange={(value) => {
+          setEditorValue(value);
+        }}
+      />
       <AntdButtonWrapper
         onClick={() => {
           saveEditorContent();
