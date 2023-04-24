@@ -21,9 +21,9 @@ function Home() {
 
   async function loadData() {
     const data = await databaseFetch({
-      model: "characters",
-      where: { id: this_user.id },
-      action: "findMany",
+      model: "Characters",
+      action: "findUnique",
+      where: { userId: this_user.id },
     });
     setData(data);
   }
