@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import useUser from "../../hooks/useUser";
 import DOMPurify from "isomorphic-dompurify";
 
+import useUser from "../../hooks/useUser";
 import databaseFetch from "../../lib/databaseFetch";
 
 import TiptapEditor from "../Editor";
@@ -22,7 +22,7 @@ const Tavern = ({ tavernData }) => {
   const [showDices, setShowDices] = useState(false);
   const [showError, setShowError] = useState(false);
 
-  //Defining connection with [tavern] database
+  //Defining an async function that loades the value from database
   useEffect(() => {
     fetchTavernData();
   }, [status]);

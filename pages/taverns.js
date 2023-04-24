@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import withAuth from "../components/withAuth";
+import withAuth from "../lib/withAuth";
 import databaseFetch from "../lib/databaseFetch";
 import tavern from "../styles/pages/tavern.module.scss";
 

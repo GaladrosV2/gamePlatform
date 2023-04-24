@@ -1,5 +1,5 @@
 import React from "react";
-import withAuth from "../withAuth";
+import withAuth from "../../lib/withAuth";
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";

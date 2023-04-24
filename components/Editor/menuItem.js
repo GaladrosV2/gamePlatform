@@ -1,21 +1,22 @@
 import React from "react";
-// import "remixicon/fonts/remixicon.css";
-import "@ant-design/icons";
-import menuItem from "./menuItems.module.scss";
-import Button from "../Button/index";
+import "remixicon/fonts/remixicon.css";
 
-const MenuItem = ({ icon, title, action, isActive }) => {
-  console.log(icon);
+import menuItem from "./menuItems.module.scss";
+import AntdButtonWrapper from "../Button";
+
+const MenuItem = (props) => {
+  const { icon, title, action } = props;
+  const isActive = null;
   return (
-    <Button
+    <AntdButtonWrapper
       className={`${menuItem.menuItem}${
         isActive && isActive() ? " is-active" : ""
       } `}
       onClick={action}
       title={title}
     >
-      {icon}
-    </Button>
+      <i className={"ri-" + icon}></i>
+    </AntdButtonWrapper>
   );
 };
 export default MenuItem;

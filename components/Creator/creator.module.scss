@@ -1,0 +1,47 @@
+@import '../../styles/variables.scss';
+.creatorLink,
+.creatorRecord {
+  margin: 10px 0;
+}
+
+.creatorLink {
+  color: white;
+}
+
+.creatorRecord label {
+  display: inline-block;
+  width: 30%; 
+}
+
+.creatorRecord input,
+.creatorRecord select {
+  display: inline-block;
+  width: 50%; 
+  border: 1px solid $white;
+  padding: 8px 15px;
+  opacity: 0.8;
+}
+
+.submitButton {
+  display: flex;
+  width: 200px;
+  height: 60px;
+  margin: 20px auto;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #ccc;
+  color: black;
+  font-size: 1.25rem;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+  background-color: darkslategrey;
+  color: red;
+}
+

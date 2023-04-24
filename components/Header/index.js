@@ -17,7 +17,7 @@ const Header = () => {
         </Col>
         <Col span={7}>
           <div className={header.header__nav}>
-            <Link className={header["header__nav-item"]} href="/postac">
+            <Link className={header["header__nav-item"]} href="/character">
               Postać
             </Link>
             <Link className={header["header__nav-item"]} href="/taverns">

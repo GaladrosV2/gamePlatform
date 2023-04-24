@@ -1,4 +1,4 @@
-import withAuth from "../../components/withAuth";
+import withAuth from "../../lib/withAuth";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import databaseFetch from "../../lib/databaseFetch";
