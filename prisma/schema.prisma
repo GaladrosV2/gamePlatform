@@ -8,28 +8,29 @@ generator client {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String?
-  email     String    @unique
-  password  String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Session             Session[]
-  tavernMessages      TavernMessages[]
-  character           Characters[]
+  id            Int           @id @default(autoincrement())
+  name          String?
+  email         String        @unique
+  password      String?
+  updatedAt     DateTime      @updatedAt
+  createdAt     DateTime      @default(now())
+  lastActive    DateTime      @db.Time @default(now())
+  Session                     Session[]
+  TavernMessages              TavernMessages[]
+  Characters                  Characters[]
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   expires      DateTime
-  sessionToken String   @unique
+  sessionToken String     @unique
   accessToken  String?
-  user         User     @relation(fields: [userId], references: [id])
+  user         User       @relation(fields: [userId], references: [id])
   userId       Int
 }
 
 model Taverns {
-  id            Int       @id @default(autoincrement())
+  id            Int               @id @default(autoincrement())
   name          String       
   description   String?
   messages      TavernMessages[]
@@ -37,21 +38,20 @@ model Taverns {
 }
 
 model TavernMessages {
-  id            Int       @id @default(autoincrement())
-  tavern        Taverns   @relation(fields: [tavernId], references: [id])
+  id            Int         @id @default(autoincrement())
+  tavern        Taverns     @relation(fields: [tavernId], references: [id])
   tavernId      Int
-  user          User      @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
   userId        Int
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime    @default(now())
   message       String
 }
 
 model Characters {
-  id           Int        @id @default(autoincrement())
-  user         User       @relation(fields: [userId], references: [id])
+  id           Int          @id @default(autoincrement())
+  user         User         @relation(fields: [userId], references: [id])
   userId       Int        
   name         String   
-  age          Int  
+  age          Int        
   class        String?
-
 }

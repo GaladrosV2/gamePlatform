@@ -6,18 +6,18 @@ import user from "./user.module.scss";
 
 const User = () => {
   const this_user = useUser();
-  const [character, setCharacter] = useState({});
+  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
     async function loadData() {
       const data = await databaseFetch({
         model: "Characters",
-        where: { userId: this_user.id },
-        action: "findUnique",
+        where: {
+          userId: this_user.id,
+        },
+        action: "findMany",
       });
-      console.log(this_user.id);
-
-      setCharacter(data);
+      setCharacters(data);
     }
 
     if (this_user) {
@@ -27,12 +27,17 @@ const User = () => {
 
   return (
     <div className={user.user__wrapper}>
-      <h1>Witaj, {this_user ? this_user.name : "Stranger"}!</h1>
-      <p>Twoja postać to:</p>
+      <h1>Witaj, {this_user ? this_user.name : ""}!</h1>
+      <p>Twoje postacie to:</p>
+
       <ul>
-        {character.name && <li>Imię: {character.name}</li>}
-        {character.age && <li>Wiek: {character.age}</li>}
-        {character.class && <li>Klasa: {character.class}</li>}
+        {characters.map((character) => (
+          <li className={user.character} key={character.id}>
+            <p>Imię: {character.name}</p>
+            <p>Wiek: {character.age}</p>
+            <p>Klasa: {character.class}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -22,7 +22,7 @@ function Home() {
   async function loadData() {
     const data = await databaseFetch({
       model: "Characters",
-      action: "findUnique",
+      action: "findMany",
       where: { userId: this_user.id },
     });
     setData(data);

@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.user__wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.character {
+    padding: 1rem;
+    list-style: none;
+    max-width: 12rem;
+    border: solid $color-ocean-blue 4px;
+    border-radius: 20px;
+    margin-bottom: 1rem;;
+}

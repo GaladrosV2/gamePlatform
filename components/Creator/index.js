@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
 import useUser from "../../hooks/useUser";
 import databaseFetch from "../../lib/databaseFetch";
 
@@ -12,28 +11,25 @@ import styles from "./creator.module.scss";
 const Creator = () => {
   const this_user = useUser();
   const router = useRouter();
+
+  const [invalidAge, setInvalidAge] = useState(false);
+  const [tooLong, setTooLong] = useState(false);
+
   let [userCharacter, setUserCharacter] = useState({
     userId: "",
     name: "",
     age: "",
     class: "",
   });
-
   const characterClass = classes[userCharacter.class];
 
-  useEffect(
-    (this_user) => {
-      if (this_user) {
-        setUserCharacter({
-          userId: this_user.id,
-          name: "",
-          age: "",
-          class: "",
-        });
-      }
-    },
-    [this_user]
-  );
+  useEffect(() => {
+    if (this_user) {
+      setUserCharacter({
+        userId: this_user.id,
+      });
+    }
+  }, [this_user]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -54,15 +50,31 @@ const Creator = () => {
   const logCharacter = async (event) => {
     if (userCharacter) {
       event.preventDefault();
+
+      // Age/name is not within the accepted range, so display an error message.
+      if (
+        parseInt(userCharacter.age) < 16 ||
+        parseInt(userCharacter.age) > 70
+      ) {
+        console.log("Invalid age entered");
+        setInvalidAge(true);
+        return;
+      } else if (userCharacter.name.length > 32) {
+        console.log("Too long name entered");
+        setTooLong(true);
+        return;
+      }
+
       router.push("/character");
 
-      const character = await databaseFetch({
+      const createCharacter = await databaseFetch({
         model: "Characters",
         action: "create",
+
         data: {
           userId: userCharacter.userId,
           name: userCharacter.name,
-          age: userCharacter.age,
+          age: parseInt(userCharacter.age),
           class: userCharacter.class,
         },
       });
@@ -78,6 +90,7 @@ const Creator = () => {
             type="text"
             id="name"
             name="name"
+            maxLength={32}
             value={userCharacter.name}
             onChange={handleInputChange}
           />
@@ -86,8 +99,9 @@ const Creator = () => {
           <label htmlFor="age">Wybierz wiek:</label>
           <input
             type="number"
-            min={15}
-            max={100}
+            placeholder="16-70"
+            min={16}
+            max={70}
             id="age"
             name="age"
             value={userCharacter.age}
@@ -110,6 +124,19 @@ const Creator = () => {
             <option value="alchemist">Alchemik</option>
           </select>
         </div>
+
+        {invalidAge && (
+          <div>
+            <p>Minimalny wiek postaci 16 Maxymalny 70</p>
+          </div>
+        )}
+
+        {tooLong && (
+          <div>
+            <p>Ta nazwa postaci to przesada...</p>
+          </div>
+        )}
+
         <AntdButtonWrapper
           type="submit"
           className={styles.submitButton}

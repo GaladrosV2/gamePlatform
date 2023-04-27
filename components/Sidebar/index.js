@@ -1,5 +1,5 @@
 import DiceRoller from "../Dices";
-// import UsersOnline from "../UsersOnline";
+import UsersOnline from "../UsersOnline";
 
 import sidebar from "./sidebar.module.scss";
 
