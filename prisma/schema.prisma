@@ -14,7 +14,7 @@ model User {
   password      String?
   updatedAt     DateTime      @updatedAt
   createdAt     DateTime      @default(now())
-  lastActive    DateTime      @db.Time @default(now())
+  lastActive    DateTime      @default(now())
   Session                     Session[]
   TavernMessages              TavernMessages[]
   Characters                  Characters[]

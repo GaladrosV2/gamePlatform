@@ -4,7 +4,7 @@ import useUser from "../../hooks/useUser";
 import databaseFetch from "../../lib/databaseFetch";
 
 import classes from "./classes/classes";
-import AntdButtonWrapper from "../Button";
+import CustomButton from "../Button";
 
 import styles from "./creator.module.scss";
 
@@ -137,13 +137,13 @@ const Creator = () => {
           </div>
         )}
 
-        <AntdButtonWrapper
+        <CustomButton
           type="submit"
           className={styles.submitButton}
           onClick={logCharacter}
         >
           Stwórz postać
-        </AntdButtonWrapper>
+        </CustomButton>
       </form>
 
       <div>{characterClass}</div>

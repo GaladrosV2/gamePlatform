@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Space, Shape } from "antd";
 
-const AntdButtonWrapper = ({ children, ...props }) => (
+const CustomButton = ({ children, ...props }) => (
   <Space wrap>
     <Button type="primary" {...props}>
       {children}
@@ -9,4 +9,4 @@ const AntdButtonWrapper = ({ children, ...props }) => (
   </Space>
 );
 
-export default AntdButtonWrapper;
+export default CustomButton;

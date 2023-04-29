@@ -5,7 +5,7 @@ import useUser from "../../hooks/useUser";
 import databaseFetch from "../../lib/databaseFetch";
 
 import TiptapEditor from "../Editor";
-import AntdButtonWrapper from "../Button";
+import Button from "../Button";
 import CupsGame from "./Games/cupsGame";
 import DicePoker from "./Games/diceGame";
 
@@ -69,17 +69,17 @@ const Tavern = ({ tavernData }) => {
   return (
     <div className={tavern.tavernWrapper}>
       <div className={tavern.messageBoard}>
-        <AntdButtonWrapper onClick={handleShowDescription}>
+        <Button onClick={handleShowDescription}>
           {showDescription ? "Schowaj opis" : "Pokaż opis"}
-        </AntdButtonWrapper>
+        </Button>
 
-        <AntdButtonWrapper onClick={handle3Cubs}>
+        <Button onClick={handle3Cubs}>
           {show3Cups ? "Skończ grę" : "Graj w 3 kubki"}
-        </AntdButtonWrapper>
+        </Button>
 
-        <AntdButtonWrapper onClick={handleDices}>
+        <Button onClick={handleDices}>
           {showDices ? "Skończ grę" : "Graj z karczmarzem w kości"}
-        </AntdButtonWrapper>
+        </Button>
 
         {showDescription && (
           <div className={tavern.description}>
@@ -124,14 +124,14 @@ const Tavern = ({ tavernData }) => {
           setEditorValue(value);
         }}
       />
-      <AntdButtonWrapper
+      <Button
         onClick={() => {
           saveEditorContent();
           window.location.replace(window.location.href);
         }}
       >
         Wyślij
-      </AntdButtonWrapper>
+      </Button>
     </div>
   );
 };

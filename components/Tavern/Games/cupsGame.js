@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AntdButtonWrapper from "../../Button";
+import Button from "../../Button";
 import games from "./games.module.scss";
 
 const CupsGame = () => {
@@ -53,9 +53,7 @@ const CupsGame = () => {
             ) : (
               <p>Przegrałeś złocisza</p>
             )}
-            <AntdButtonWrapper onClick={handlePopupClose}>
-              Jeszcze raz!
-            </AntdButtonWrapper>
+            <Button onClick={handlePopupClose}>Jeszcze raz!</Button>
           </div>
         </div>
       )}

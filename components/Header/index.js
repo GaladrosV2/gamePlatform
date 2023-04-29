@@ -23,7 +23,7 @@ const Header = () => {
             <Link className={header["header__nav-item"]} href="/taverns">
               Karczmy
             </Link>
-            <Link className={header["header__nav-item"]} href="/sesje">
+            <Link className={header["header__nav-item"]} href="/sessions">
               Sesje
             </Link>
             <LogoutButton className={header["header__nav-item"]} />

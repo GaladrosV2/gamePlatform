@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import prisma from "../../../lib/prisma";
-import databaseFetch from "../../../lib/databaseFetch";
 
 export const authOptions = {
   providers: [
@@ -37,11 +36,8 @@ export const authOptions = {
   ],
   callbacks: {
     async session(session) {
-      //   console.log(session);
-      await databaseFetch({
-        model: "User",
-        action: "update",
-        where: { id: session.token.sub },
+      await prisma.user.update({
+        where: { id: parseInt(session.token.sub) },
         data: { lastActive: new Date() },
       });
       return session;

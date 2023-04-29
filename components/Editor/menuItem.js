@@ -2,13 +2,13 @@ import React from "react";
 import "remixicon/fonts/remixicon.css";
 
 import menuItem from "./menuItems.module.scss";
-import AntdButtonWrapper from "../Button";
+import CustomButton from "../Button";
 
 const MenuItem = (props) => {
   const { icon, title, action } = props;
   const isActive = null;
   return (
-    <AntdButtonWrapper
+    <CustomButton
       className={`${menuItem.menuItem}${
         isActive && isActive() ? " is-active" : ""
       } `}
@@ -16,7 +16,7 @@ const MenuItem = (props) => {
       title={title}
     >
       <i className={"ri-" + icon}></i>
-    </AntdButtonWrapper>
+    </CustomButton>
   );
 };
 export default MenuItem;
