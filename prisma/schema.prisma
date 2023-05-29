@@ -8,50 +8,63 @@ generator client {
 }
 
 model User {
-  id            Int           @id @default(autoincrement())
-  name          String?
-  email         String        @unique
-  password      String?
-  updatedAt     DateTime      @updatedAt
-  createdAt     DateTime      @default(now())
-  lastActive    DateTime      @default(now())
-  Session                     Session[]
-  TavernMessages              TavernMessages[]
-  Characters                  Characters[]
+  id             Int      @id @default(autoincrement())
+  name           String?
+  email          String   @unique
+  password       String?
+  updatedAt      DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  lastActive     DateTime @default(now())
+  displayedRole  Roles    @relation("UserRole", fields: [displayedRoleId], references: [id])
+  displayedRoleId Int     @default(1)
+  roles          Roles[]  @relation("UserRoles")
+
+  Session        Session[]
+  TavernMessages TavernMessages[]
+  Characters     Characters[]
+}
+
+model Roles {
+  id            Int      @id @default(autoincrement())
+  slug          String   @unique
+  displayedName String
+  permissions   String[]
+  users         User[]   @relation("UserRoles")
+  displayedIn   User[]   @relation("UserRole")
 }
 
 model Session {
-  id           Int        @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   expires      DateTime
-  sessionToken String     @unique
+  sessionToken String   @unique
   accessToken  String?
-  user         User       @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
   userId       Int
 }
 
 model Taverns {
-  id            Int               @id @default(autoincrement())
-  name          String       
-  description   String?
-  messages      TavernMessages[]
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
 
+  messages TavernMessages[]
 }
 
 model TavernMessages {
-  id            Int         @id @default(autoincrement())
-  tavern        Taverns     @relation(fields: [tavernId], references: [id])
-  tavernId      Int
-  user          User        @relation(fields: [userId], references: [id])
-  userId        Int
-  createdAt     DateTime    @default(now())
-  message       String
+  id        Int      @id @default(autoincrement())
+  tavern    Taverns  @relation(fields: [tavernId], references: [id])
+  tavernId  Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  message   String
 }
 
 model Characters {
-  id           Int          @id @default(autoincrement())
-  user         User         @relation(fields: [userId], references: [id])
-  userId       Int        
-  name         String   
-  age          Int        
-  class        String?
+  id     Int     @id @default(autoincrement())
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
+  name   String
+  age    Int
+  class  String?
 }
