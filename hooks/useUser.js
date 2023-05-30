@@ -3,28 +3,28 @@ import { useSession } from "next-auth/react";
 import databaseFetch from "../lib/databaseFetch";
 
 const useUser = () => {
-  const [user, setUser] = useState(null);
-  const { data: session } = useSession();
+	const [user, setUser] = useState(null);
+	const { data: session } = useSession();
 
-  useEffect(() => {
-    const getUser = async () => {
-      if (session?.user?.email) {
-        const userData = await databaseFetch({
-          model: "User",
-          action: "findUnique",
-          where: {
-            email: session.user.email,
-          },
-        });
+	useEffect(() => {
+		const getUser = async () => {
+			if (session?.session?.user?.email) {
+				const userData = await databaseFetch({
+					model: "User",
+					action: "findUnique",
+					where: {
+						email: session?.session?.user?.email,
+					},
+				});
 
-        setUser(userData);
-      }
-    };
+				setUser(userData);
+			}
+		};
 
-    getUser();
-  }, [session]);
+		getUser();
+	}, [session]);
 
-  return user;
+	return user;
 };
 
 export default useUser;
