@@ -8,21 +8,21 @@ generator client {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  name           String?
-  email          String   @unique
-  password       String?
-  updatedAt      DateTime @updatedAt
-  createdAt      DateTime @default(now())
-  lastActive     DateTime @default(now())
-  roles          Roles[]  @relation("UserRoles")
+  id         Int      @id @default(autoincrement())
+  name       String?
+  email      String   @unique
+  password   String?
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  lastActive DateTime @default(now())
 
-  Session        Session[]
-  TavernMessages TavernMessages[]
-  Characters     Characters[]
-  Replies         CampaignReply[]
-  CampaignGM      Campaign[]       @relation(name: "GM")
-  PlayerCampaigns Campaign[]       @relation(name: "Players")
+  roles                 Roles[]          @relation("UserRoles")
+  Session               Session[]
+  TavernMessages        TavernMessages[]
+  Characters            Character[]
+  Replies               CampaignReply[]
+  campaignsAsGameMaster Campaign[]       @relation("CampaignsAsGameMaster")
+  campaignsAsPlayer     Campaign[]       @relation("CampaignsAsPlayer")
 }
 
 model Roles {
@@ -60,13 +60,15 @@ model TavernMessages {
   message   String
 }
 
-model Characters {
-  id     Int     @id @default(autoincrement())
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int
-  name   String
-  age    Int
-  class  String?
+model Character {
+  id         Int       @id @default(autoincrement())
+  name       String
+  age        Int
+  class      String
+  user       User      @relation(fields: [userId], references: [id])
+  userId     Int
+  campaign   Campaign? @relation(fields: [campaignId], references: [id])
+  campaignId Int?
 }
 
 model Locations {
@@ -79,17 +81,19 @@ model Locations {
 }
 
 model Campaign {
-  id          Int             @id @default(autoincrement())
-  createdAt   DateTime        @default(now())
-  ended       Boolean         @default(false)
-  name        String
-  description String
-  images      String
-  gameMaster  User            @relation(name: "GM", fields: [userId], references: [id])
-  userId      Int
-  players     User[]          @relation(name: "Players")
-  place       Locations[]
-  replies     CampaignReply[]
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  ended        Boolean  @default(false)
+  name         String
+  description  String
+  images       String
+  gameMaster   User     @relation("CampaignsAsGameMaster", fields: [gameMasterId], references: [id])
+  gameMasterId Int
+
+  place      Locations[]
+  replies    CampaignReply[]
+  players    User[]          @relation("CampaignsAsPlayer")
+  characters Character[]
 }
 
 model CampaignReply {
